@@ -1,0 +1,7 @@
+name: BubbleChat
+version: '1.0-SNAPSHOT'
+main: xyz.n501yhappy.bubbleChat.BubbleChat
+api-version: '1.18'
+prefix: BubbleChat
+authors: [ N501YHappy ]
+description: Chatting with lovely bubbles
