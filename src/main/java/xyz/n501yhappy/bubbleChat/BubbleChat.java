@@ -1,7 +1,9 @@
 package xyz.n501yhappy.bubbleChat;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import xyz.n501yhappy.bubbleChat.commands.BubbleChatCommand;
 import xyz.n501yhappy.bubbleChat.listeners.Chatting;
+import xyz.n501yhappy.bubbleChat.listeners.Disappear;
 import xyz.n501yhappy.bubbleChat.listeners.Moving;
 import xyz.n501yhappy.bubbleChat.utils.ChattingManager;
 
@@ -18,7 +20,10 @@ public final class BubbleChat extends JavaPlugin {
         instance = this;
         getServer().getPluginManager().registerEvents(new Chatting(),this);
         getServer().getPluginManager().registerEvents(new Moving(),this);
-
+        getServer().getPluginManager().registerEvents(new Disappear(),this);
+        saveDefaultConfig();
+        ConfigLoader.reload();
+        getCommand("bubblechat").setExecutor(new BubbleChatCommand());
         ChattingManager.runClearInvidia();
         // Plugin startup logic
 

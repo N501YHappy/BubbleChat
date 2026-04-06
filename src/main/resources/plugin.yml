@@ -5,3 +5,10 @@ api-version: '1.18'
 prefix: BubbleChat
 authors: [ N501YHappy ]
 description: Chatting with lovely bubbles
+commands:
+  bubblechat:
+    aliases:
+      - bc
+      - bchat
+    description: "Reload config"
+    usage: "/bubblechat"

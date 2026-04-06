@@ -14,13 +14,11 @@ import java.util.Locale;
 import java.util.Queue;
 import java.util.UUID;
 
+import static xyz.n501yhappy.bubbleChat.ConfigLoader.*;
 import static xyz.n501yhappy.bubbleChat.utils.ChattingManager.chatMapping;
 
 public class Moving implements Listener {
-    private static final double OFFSET_X = 0;
-    private static final double OFFSET_Y =1.4;
-    private static final double OFFSET_Z =0.7;
-    private static final double SNEAK_OFFSET = -0.3;
+    private static final double SNEAK_OFFSET = -0.3; //潜行时的偏移量
     @EventHandler
     public void onMove(PlayerMoveEvent event){
         syncPos(event.getPlayer(),event.getPlayer().isSneaking());
@@ -29,7 +27,7 @@ public class Moving implements Listener {
     public void onSneak(PlayerToggleSneakEvent event){
         syncPos(event.getPlayer(),event.isSneaking());
     }
-    public static void syncPos(Player player, Boolean isSneaking){
+    public static void syncPos(Player player, Boolean isSneaking){ //同步位置
         UUID uuid = player.getUniqueId();
         if (!chatMapping.containsKey(uuid) || chatMapping.get(uuid) == null || chatMapping.get(uuid).isEmpty()) return;
 
@@ -40,7 +38,7 @@ public class Moving implements Listener {
             if (!struct.hasArmorStand()) return;
             ArmorStand armorStand = (ArmorStand) Bukkit.getEntity(struct.getArmorID());
             if (armorStand == null) continue;
-            armorStand.teleport(calcLocation(player.getLocation(),isSneaking).add(0,0.4*cnt ,0));
+            armorStand.teleport(calcLocation(player.getLocation(),isSneaking).add(0,(EXPAND ? 1 : -1) * GAP*cnt ,0));
             cnt++;
         }
     }
