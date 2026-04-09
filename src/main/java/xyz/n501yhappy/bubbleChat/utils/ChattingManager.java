@@ -17,6 +17,7 @@ public class ChattingManager {
     public static void chat(Player player,String message){
         UUID uuid = player.getUniqueId();
         MessageStruct struct = new MessageStruct(message,System.currentTimeMillis());
+        struct.setSender(uuid);
         Queue<MessageStruct> queue = chatMapping.computeIfAbsent(uuid,k -> new ConcurrentLinkedQueue<>());
         queue.offer(struct);
         Bukkit.getScheduler().runTask(BubbleChat.instance,() -> {
