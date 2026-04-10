@@ -60,6 +60,7 @@ public class Moving implements Listener {
         double final_X = -(leg_bottom_X - leg_bottom_Z) +playerLoc.getX(); //因为在mc中，yaw为90度时X为负方向
         double final_Z = (leg_X + leg_Z) + playerLoc.getZ();
 
+
         Location location = new Location(playerLoc.getWorld(),final_X,playerLoc.getY() +  OFFSET_Y + (isSneaking ? SNEAK_OFFSET : 0),final_Z);
         return location;
     }

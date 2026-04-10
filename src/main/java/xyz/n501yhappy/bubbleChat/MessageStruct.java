@@ -5,23 +5,24 @@ import java.util.UUID;
 public class MessageStruct {
     private String message;
     private Long timestamp;
-    private UUID armorID;  // 对应的泡泡盔甲架 UUID
-    private UUID sender; //发送者
-
-    public MessageStruct(String message) {
-        this(message, System.currentTimeMillis());
+    private UUID armorID;      // 对应的泡泡盔甲架 UUID
+    private UUID sender;       // 发送者
+    private final UUID structUUID; // 这个结构的唯一ID
+    public MessageStruct(String message, UUID sender) {
+        this(message, System.currentTimeMillis(), null, sender);
     }
 
-    public MessageStruct(String message, Long timestamp) {
-        this.message = message;
-        this.timestamp = timestamp;
-        this.armorID = null;  // 默认没有关联的盔甲架
-    }
 
-    public MessageStruct(String message, Long timestamp, UUID armorID) {
+    public MessageStruct(String message, Long timestamp, UUID armorID, UUID sender) {
         this.message = message;
         this.timestamp = timestamp;
         this.armorID = armorID;
+        this.sender = sender;
+        this.structUUID = UUID.randomUUID();
+    }
+
+    public MessageStruct(String message, Long timestamp) {
+        this(message, timestamp, null, null);
     }
 
     // Getters
@@ -39,6 +40,10 @@ public class MessageStruct {
 
     public UUID getSender() {
         return sender;
+    }
+
+    public UUID getStructUUID() {
+        return structUUID;
     }
 
     // Setters
@@ -66,10 +71,15 @@ public class MessageStruct {
         return armorID != null;
     }
 
+    public boolean hasSender() {
+        return sender != null;
+    }
+
     @Override
     public String toString() {
         return "MessageStruct{" +
-                "message='" + message + '\'' +
+                "structUUID=" + structUUID +
+                ", message='" + message + '\'' +
                 ", timestamp=" + timestamp +
                 ", armorID=" + armorID +
                 ", sender=" + sender +
