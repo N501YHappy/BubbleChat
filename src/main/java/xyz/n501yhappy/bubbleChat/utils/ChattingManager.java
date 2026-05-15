@@ -12,6 +12,8 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import static xyz.n501yhappy.bubbleChat.ConfigLoader.DISPLAY;
+
 public class ChattingManager {
     public static Map<UUID, Queue<MessageStruct>> chatMapping = new ConcurrentHashMap<>();
     public static void chat(Player player,String message){
@@ -31,6 +33,12 @@ public class ChattingManager {
                 Queue<MessageStruct> queue = structs.getValue();
                 if (queue.isEmpty()) return;
                 while (!queue.isEmpty() && queue.peek().isExpired()){
+                    ArmorStand armorStand = (ArmorStand) Bukkit.getEntity(queue.peek().getArmorID());
+                    if (armorStand != null) armorStand.remove();
+                    queue.poll();
+                    Moving.syncPos(Bukkit.getPlayer(structs.getKey()),Bukkit.getPlayer(structs.getKey()).isSneaking()); //更新一下列表
+                }
+                while (queue.size() > DISPLAY){
                     ArmorStand armorStand = (ArmorStand) Bukkit.getEntity(queue.peek().getArmorID());
                     if (armorStand != null) armorStand.remove();
                     queue.poll();

@@ -13,6 +13,7 @@ public class ConfigLoader {
     public static Double OFFSET_Z = 0.7;
     public static Boolean EXPAND = true; //true for up false for down
     public static Double GAP = 0.1;
+    public static Integer DISPLAY = 5;
     public static void reload(){
         instance.reloadConfig();
         instance.saveDefaultConfig();
@@ -23,6 +24,7 @@ public class ConfigLoader {
         OFFSET_Z = config.getDouble("offsets.offset_z",OFFSET_Z);
         EXPAND = Objects.equals(config.getString("expand"), "up");
         GAP = config.getDouble("gap",GAP);
+        DISPLAY = config.getInt("display",DISPLAY);
     }
     private static String toColorful(String string){
     return string.replace('&','§');
